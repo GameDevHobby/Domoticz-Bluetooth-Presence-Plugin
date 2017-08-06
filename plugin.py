@@ -6,6 +6,13 @@
 <plugin key="BluetoothPresenceDetection" name="Bluetooth Presence Detection" author="GameDevHobby" version="1.0.0">
     <params>
 	<param field="Address" label="MAC Address" width="150px" required="true"/>
+        <param field="Mode5" label="Update interval (sec)" width="30px" required="true" default="30"/>
+        <param field="Mode6" label="Debug" width="75px">
+            <options>
+                <option label="True" value="Debug"/>
+                <option label="False" value="Normal" default="true" />
+            </options>
+        </param>
     </params>
 </plugin>
 """
@@ -26,10 +33,21 @@ class BasePlugin:
         #else:
             #if (1 in Devices): SwitchState = Devices[1].nValue
             #for i in Devices:
-                
-        DumpConfigToLog()
-        Domoticz.Log("Plugin is started.")
-        Domoticz.Heartbeat(20)
+        
+        if Parameters["Mode6"] == "Debug": 
+            self.debug = True
+            Domoticz.Debugging(1)                
+            DumpConfigToLog()
+
+        updateInterval = int(Parameters["Mode5"])
+        
+        if updateInterval < 60:
+            if updateInterval < 10: updateInterval == 10
+            Domoticz.Log("Update interval set to " + str(updateInterval) + " (minimum is 10 seconds)")
+            Domoticz.Heartbeat(updateInterval)
+        else:
+            Domoticz.Heartbeat(60)
+        
 
     def onStop(self):
         #Domoticz.Log("onStop called")
