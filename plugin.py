@@ -3,7 +3,7 @@
 # Author: Chris Gheen @GameDevHobby
 #
 """
-<plugin key="BluetoothPresenceDetection" name="Bluetooth Presence Detection" author="GameDevHobby" version="1.0.0">
+<plugin key="BluetoothPresenceDetection" name="Bluetooth Presence Detection" author="Chris Gheen $GameDevHobby" version="0.7.0">
     <params>
 	<param field="Address" label="MAC Address" width="150px" required="true"/>
         <param field="Mode5" label="Update interval (sec)" width="30px" required="true" default="30"/>
